@@ -7,5 +7,5 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface DietLogRepository extends JpaRepository<DietLog, Long> {
-    List<DietLog> findByUserIdAndDate(Long userId, LocalDate date);
+    List<DietLog> findByUserId(Long userId);
 }

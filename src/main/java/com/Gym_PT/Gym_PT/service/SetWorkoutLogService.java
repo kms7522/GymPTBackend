@@ -21,4 +21,12 @@ public class SetWorkoutLogService {
     public List<SetWorkoutLog> getByEachId(Long eachId) {
         return repository.findByEachWorkoutLogId(eachId);
     }
+
+    public List<SetWorkoutLog> getAll() {
+        return repository.findAll();
+    }
+
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
 }

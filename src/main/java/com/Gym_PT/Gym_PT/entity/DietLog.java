@@ -2,8 +2,15 @@ package com.Gym_PT.Gym_PT.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "DietLogs")
 public class DietLog {
@@ -16,7 +23,7 @@ public class DietLog {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private LocalDateTime date;
+    private LocalDate date;
 
     @Enumerated(EnumType.STRING)
     private Type type;

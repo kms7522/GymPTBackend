@@ -1,18 +1,16 @@
 package com.Gym_PT.Gym_PT.controller;
 
-import com.Gym_PT.Gym_PT.entity.CalendarEntry;
-import com.Gym_PT.Gym_PT.entity.CalendarId;
+import com.Gym_PT.Gym_PT.entity.Calendar;
 import com.Gym_PT.Gym_PT.service.CalendarService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/calendar")
+@RequestMapping("/api/calendars")
 public class CalendarController {
+
     private final CalendarService calendarService;
 
     public CalendarController(CalendarService calendarService) {
@@ -20,23 +18,18 @@ public class CalendarController {
     }
 
     @PostMapping
-    public ResponseEntity<CalendarEntry> createOrUpdate(@RequestBody CalendarEntry entry) {
-        return ResponseEntity.ok(calendarService.save(entry));
+    public ResponseEntity<Calendar> create(@RequestBody Calendar calendar) {
+        return ResponseEntity.ok(calendarService.create(calendar));
     }
 
-    @GetMapping("/{userId}/{date}")
-    public ResponseEntity<Optional<CalendarEntry>> getEntry(@PathVariable Long userId, @PathVariable String date) {
-        return ResponseEntity.ok(calendarService.getByUserAndDate(userId, LocalDate.parse(date)));
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Calendar>> getByUser(@PathVariable Long userId) {
+        return ResponseEntity.ok(calendarService.getByUser(userId));
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<List<CalendarEntry>> getAll(@PathVariable Long userId) {
-        return ResponseEntity.ok(calendarService.getAllByUser(userId));
-    }
-
-    @DeleteMapping("/{userId}/{date}")
-    public ResponseEntity<Void> deleteEntry(@PathVariable Long userId, @PathVariable String date) {
-        calendarService.delete(new CalendarId(userId, LocalDate.parse(date)));
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        calendarService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

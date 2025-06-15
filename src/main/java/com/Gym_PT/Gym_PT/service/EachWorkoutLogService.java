@@ -5,6 +5,7 @@ import com.Gym_PT.Gym_PT.repository.EachWorkoutLogRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EachWorkoutLogService {
@@ -21,4 +22,13 @@ public class EachWorkoutLogService {
     public List<EachWorkoutLog> getByDailyId(Long dailyId) {
         return repository.findByDailyWorkoutLogId(dailyId);
     }
+
+    public List<EachWorkoutLog> getAll() {
+        return repository.findAll();
+    }
+
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
+
 }

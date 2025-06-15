@@ -1,9 +1,15 @@
 package com.Gym_PT.Gym_PT.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
-@Table(name = "SetWrokoutLogs")
+@Table(name = "SetWorkoutLogs")
 public class SetWorkoutLog {
 
     @Id

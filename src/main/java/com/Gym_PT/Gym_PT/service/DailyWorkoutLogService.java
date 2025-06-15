@@ -21,4 +21,13 @@ public class DailyWorkoutLogService {
     public List<DailyWorkoutLog> getByUserId(Long userId) {
         return repository.findByUserId(userId);
     }
+
+    public List<DailyWorkoutLog> getAll() {
+        return repository.findAll();
+    }
+
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
+
 }

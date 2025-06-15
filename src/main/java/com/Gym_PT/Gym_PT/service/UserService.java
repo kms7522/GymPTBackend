@@ -4,6 +4,7 @@ import com.Gym_PT.Gym_PT.entity.User;
 import com.Gym_PT.Gym_PT.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,4 +26,9 @@ public class UserService {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
 }

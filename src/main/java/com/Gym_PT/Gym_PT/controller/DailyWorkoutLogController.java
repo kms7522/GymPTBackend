@@ -25,4 +25,16 @@ public class DailyWorkoutLogController {
     public ResponseEntity<List<DailyWorkoutLog>> getByUser(@PathVariable Long userId) {
         return ResponseEntity.ok(service.getByUserId(userId));
     }
+
+    @GetMapping
+    public ResponseEntity<List<DailyWorkoutLog>> getAll() {
+        return ResponseEntity.ok(service.getAll());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

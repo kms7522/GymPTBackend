@@ -25,4 +25,22 @@ public class DietItemController {
     public ResponseEntity<List<DietItem>> getByDiet(@PathVariable Long dietId) {
         return ResponseEntity.ok(service.getByDietId(dietId));
     }
+
+    @GetMapping
+    public ResponseEntity<List<DietItem>> getAll() {
+        return ResponseEntity.ok(service.getAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DietItem> getById(@PathVariable Long id) {
+        return service.getById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
