@@ -13,17 +13,33 @@ public class GptController {
     private final GptDietService gptDietService;
 
     @PostMapping("/routine")
-    public ResponseEntity<String> getRoutine(@RequestParam String goal,
-                                             @RequestParam String bodyPart,
-                                             @RequestParam String level) {
-        String result = gptRoutineService.generateRoutine(goal, bodyPart, level);
+    public ResponseEntity<String> getRoutine(
+            @RequestParam(name = "age") int age,
+            @RequestParam(name = "gender") String gender,
+            @RequestParam(name = "height") int height,
+            @RequestParam(name = "weight") int weight,
+            @RequestParam(name = "goal") String goal,
+            @RequestParam(name = "bodyPart") String bodyPart,
+            @RequestParam(name = "level") String level
+    ) {
+        String result = gptRoutineService.generateRoutine(age, gender, height, weight, goal, bodyPart, level);
         return ResponseEntity.ok(result);
     }
 
+
+
     @PostMapping("/diet")
-    public ResponseEntity<String> getMeal(@RequestParam String goal,
-                                          @RequestParam(defaultValue = "한국") String style) {
-        String result = gptDietService.generateMeal(goal, style);
+    public ResponseEntity<String> getDiet(
+            @RequestParam(name = "age") int age,
+            @RequestParam(name = "gender") String gender,
+            @RequestParam(name = "height") int height,
+            @RequestParam(name = "weight") int weight,
+            @RequestParam(name = "goal") String goal,
+            @RequestParam(name = "mealType") String mealType
+    ) {
+        String result = gptDietService.generateDiet(age, gender, height, weight, goal, mealType);
         return ResponseEntity.ok(result);
     }
+
+
 }
