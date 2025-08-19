@@ -24,6 +24,7 @@ dependencies {
 	implementation 'com.fasterxml:classmate:1.5.1'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.hibernate.validator:hibernate-validator:7.0.1.Final'
+	implementation 'com.h2database:h2'
 
 	compileOnly 'org.projectlombok:lombok:1.18.30'
 	annotationProcessor 'org.projectlombok:lombok:1.18.30'
@@ -33,9 +34,20 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
 
-}
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
 
+	implementation 'software.amazon.awssdk:s3:2.25.11'
+
+}
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+tasks.withType(JavaCompile) {
+	options.compilerArgs += ["-parameters"]
+}
+

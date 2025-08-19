@@ -27,7 +27,12 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Goal goal;
 
-    // getters, setters
+    @Enumerated(EnumType.STRING)
+    private ExperienceLevel experienceLevel;
+
+    private Integer duration;
+    private String location;
+    private String splitStrategy;
 
     public enum Gender {
         MALE, FEMALE
@@ -35,5 +40,9 @@ public class User {
 
     public enum Goal {
         DIET, BULK, KEEP
+    }
+
+    public enum ExperienceLevel {
+        BEGINNER, INTERMEDIATE, ADVANCED
     }
 }

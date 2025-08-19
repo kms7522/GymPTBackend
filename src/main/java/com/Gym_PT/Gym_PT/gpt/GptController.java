@@ -1,5 +1,7 @@
 package com.Gym_PT.Gym_PT.gpt;
 
+import com.Gym_PT.Gym_PT.entity.User;
+import com.Gym_PT.Gym_PT.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,35 +13,21 @@ public class GptController {
 
     private final GptRoutineService gptRoutineService;
     private final GptDietService gptDietService;
+    private final UserService userService;
 
-    @PostMapping("/routine")
-    public ResponseEntity<String> getRoutine(
-            @RequestParam(name = "age") int age,
-            @RequestParam(name = "gender") String gender,
-            @RequestParam(name = "height") int height,
-            @RequestParam(name = "weight") int weight,
-            @RequestParam(name = "goal") String goal,
-            @RequestParam(name = "bodyPart") String bodyPart,
-            @RequestParam(name = "level") String level
-    ) {
-        String result = gptRoutineService.generateRoutine(age, gender, height, weight, goal, bodyPart, level);
+    @GetMapping("/routine/{userId}")
+    public ResponseEntity<String> getRoutine(@PathVariable("userId") Long userId) {
+        User user = userService.getUser(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+        String result = gptRoutineService.generateRoutine(user);
         return ResponseEntity.ok(result);
     }
 
-
-
-    @PostMapping("/diet")
-    public ResponseEntity<String> getDiet(
-            @RequestParam(name = "age") int age,
-            @RequestParam(name = "gender") String gender,
-            @RequestParam(name = "height") int height,
-            @RequestParam(name = "weight") int weight,
-            @RequestParam(name = "goal") String goal,
-            @RequestParam(name = "mealType") String mealType
-    ) {
-        String result = gptDietService.generateDiet(age, gender, height, weight, goal, mealType);
+    @GetMapping("/diet/{userId}")
+    public ResponseEntity<String> getDiet(@PathVariable Long userId) {
+        User user = userService.getUser(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+        String result = gptDietService.generateDiet(user); // ← 오버로드 사용
         return ResponseEntity.ok(result);
     }
-
-
 }
